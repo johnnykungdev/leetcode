@@ -4,22 +4,33 @@
 
 function singleNumber(nums: number[]): number {
   // solution with S(n)
-  const cachedObject: {
-    [key: number]: number[]
-  } = {
-    1: [],
-    2: [],
-  };
+  // const cachedObject: {
+  //   [key: number]: number[]
+  // } = {
+  //   1: [],
+  //   2: [],
+  // };
+  // nums.forEach((num) => {
+  //   if (!cachedObject[1].includes(num) && !cachedObject[2].includes(num)) {
+  //     cachedObject[1].push(num);
+  //   } else if (cachedObject[1].includes(num) && !cachedObject[2].includes(num)) {
+  //     cachedObject[1] = cachedObject[1].filter(item => item !== num);
+  //     cachedObject[2].push(num);
+  //   }
+  // });
+
+  // return cachedObject[1][0];
+
+  // solution 2
+  // O(n) and contant space
+  let result = 0;
   nums.forEach((num) => {
-    if (!cachedObject[1].includes(num) && !cachedObject[2].includes(num)) {
-      cachedObject[1].push(num);
-    } else if (cachedObject[1].includes(num) && !cachedObject[2].includes(num)) {
-      cachedObject[1] = cachedObject[1].filter(item => item !== num);
-      cachedObject[2].push(num);
+    const occurence = nums.filter((ele) => ele === num);
+    if (occurence.length === 1) {
+      result = num;
     }
   });
-
-  return cachedObject[1][0];
+  return result;
 }
 
 export default singleNumber;
