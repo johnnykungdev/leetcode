@@ -23,12 +23,20 @@ function singleNumber(nums: number[]): number {
 
   // solution 2
   // O(n) and contant space
+  // let result = 0;
+  // nums.forEach((num) => {
+  //   const occurence = nums.filter((ele) => ele === num);
+  //   if (occurence.length === 1) {
+  //     result = num;
+  //   }
+  // });
+  // return result;
+
+  // solution 3
+  // Use XOR
   let result = 0;
   nums.forEach((num) => {
-    const occurence = nums.filter((ele) => ele === num);
-    if (occurence.length === 1) {
-      result = num;
-    }
+    result = result ^ num;
   });
   return result;
 }
