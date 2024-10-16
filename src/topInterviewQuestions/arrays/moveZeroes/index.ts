@@ -22,35 +22,67 @@ Constraints:
  */
 function moveZeroes(nums: number[]): void {
   // first solution, O(n^2)
-  function switchIfZero(i: number) {
-    let base = i;
-    let column = i + 1;
-    while(base < nums.length) {
-      const num = nums[base];
-      if (num !== 0) {
-        break;
-      }
-      if (base === nums.length - 1 || column === nums.length) {
-        break;
-      }
+  // function switchIfZero(i: number) {
+  //   let base = i;
+  //   let column = i + 1;
+  //   while(base < nums.length) {
+  //     const num = nums[base];
+  //     if (num !== 0) {
+  //       break;
+  //     }
+  //     if (base === nums.length - 1 || column === nums.length) {
+  //       break;
+  //     }
 
-      if (num === 0 && nums[column]) {
-        nums[base] = nums[column];
-        nums[column] = 0;
-        base = column;
-        column = base + 1;
-      } else if (num === 0 && !nums[column]) {
-        column++;
-      }
-    }
-  }
+  //     if (num === 0 && nums[column]) {
+  //       nums[base] = nums[column];
+  //       nums[column] = 0;
+  //       base = column;
+  //       column = base + 1;
+  //     } else if (num === 0 && !nums[column]) {
+  //       column++;
+  //     }
+  //   }
+  // }
 
-  for (let i = 0; i < nums.length; i++) {
-    switchIfZero(i);
-  }
+  // for (let i = 0; i < nums.length; i++) {
+  //   switchIfZero(i);
+  // }
 
   // second solution
+  // let cachedObject: {
+  //   [key: number]: number
+  // } = {};
+  // nums.forEach((num, index) => {
+  //   if (num !== 0) {
+  //     cachedObject[index] = num;
+  //   }
+  // });
+  // const cachedKeys = Object.keys(cachedObject)
+  //   .sort((a, b) => Number(a) - Number(b))
+    
+  //   cachedKeys.forEach((key, index) => {
+  //     nums[index] = cachedObject[Number(key)];
+  //   });
+  //   for(let i = cachedKeys.length; i < nums.length; i++) {
+  //     nums[i] = 0;
+  //   }
 
+  // third solution - TIMEOUT IN LEETCODE
+  // const times = nums.filter((num) => num === 0);
+  // times.forEach((time) => {
+  //   for (let i = 0; i < nums.length; i++) {
+  //     const num = nums[i];
+
+  //     if (num === 0) {
+  //       for (let j = i; j < nums.length - 1; j++) {
+  //         console.log('nums', nums);
+  //         nums[j] = nums[j+1];
+  //       }
+  //       nums[nums.length - 1] = 0;
+  //     }
+  //   }
+  // })
 };
 
 export default moveZeroes;
