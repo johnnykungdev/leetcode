@@ -83,6 +83,26 @@ function moveZeroes(nums: number[]): void {
   //     }
   //   }
   // })
+
+  // fourth solution
+  // This is similar to second solution
+  const additionalArr: number[] = [];
+  nums.forEach((num) => {
+    if (num !== 0) {
+      additionalArr.push(num);
+    }
+  });
+  nums.forEach((num) => {
+    if (num === 0) {
+      additionalArr.push(num);
+    }
+  });
+  additionalArr.forEach((num, index) => {
+    nums[index] = num;
+  });
+
+  // Fifth solution - Two pointer
+  
 };
 
 export default moveZeroes;
