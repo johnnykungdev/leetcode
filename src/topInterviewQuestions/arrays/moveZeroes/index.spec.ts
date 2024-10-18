@@ -35,3 +35,15 @@ test('Example 6: Mixed zeroes and negative numbers', () => {
   moveZeroes(nums);
   expect(nums).toEqual([-1, -2, 3, 0, 0]); // Zeroes moved to the end
 });
+
+test('Example 7: Mixed zeroes and negative numbers', () => {
+  const nums = [1, 0];
+  moveZeroes(nums);
+  expect(nums).toEqual([1, 0]); // Zeroes moved to the end
+});
+
+test('Example 7: Mixed zeroes and negative numbers', () => {
+  const nums = [1, 0, 1];
+  moveZeroes(nums);
+  expect(nums).toEqual([1, 1, 0]); // Zeroes moved to the end
+});

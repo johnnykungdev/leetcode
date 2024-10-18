@@ -86,23 +86,68 @@ function moveZeroes(nums: number[]): void {
 
   // fourth solution
   // This is similar to second solution
-  const additionalArr: number[] = [];
-  nums.forEach((num) => {
-    if (num !== 0) {
-      additionalArr.push(num);
-    }
-  });
-  nums.forEach((num) => {
-    if (num === 0) {
-      additionalArr.push(num);
-    }
-  });
-  additionalArr.forEach((num, index) => {
-    nums[index] = num;
-  });
+  // const additionalArr: number[] = [];
+  // nums.forEach((num) => {
+  //   if (num !== 0) {
+  //     additionalArr.push(num);
+  //   }
+  // });
+  // nums.forEach((num) => {
+  //   if (num === 0) {
+  //     additionalArr.push(num);
+  //   }
+  // });
+  // additionalArr.forEach((num, index) => {
+  //   nums[index] = num;
+  // });
 
   // Fifth solution - Two pointer
-  
+  let pointer1 = 0;
+  let pointer2 = 0;
+  while (pointer1 < nums.length && pointer2 < nums.length) {
+    function movePointerTwoToNextNonZero() {
+      if (nums[pointer2] && nums[pointer2] !== 0) {
+        return;
+      } else if (pointer2 === nums.length + 1) {
+        return;
+      }
+      else {
+        pointer2++;
+        movePointerTwoToNextNonZero();
+      }
+    }
+
+    function movePointerTwoToNextZero() {
+      if (nums[pointer1] === 0) {
+        return;
+      } else if (pointer1 === nums.length + 1) {
+        return;
+      }
+      else {
+        pointer1++;
+        movePointerTwoToNextZero()
+      }
+    }
+
+    movePointerTwoToNextZero();
+    movePointerTwoToNextNonZero();
+
+    if (pointer1 > nums.length || pointer2 > nums.length) {
+      break;
+    }
+
+    let temp;
+    if (pointer2 > pointer1) {
+      temp = nums[pointer1];
+      nums[pointer1] = nums[pointer2];
+      nums[pointer2] = temp;
+    } else if (pointer1 > pointer2) {
+      pointer2++;
+    } else {
+      pointer1++;
+      pointer2++;
+    }
+  }
 };
 
 export default moveZeroes;
