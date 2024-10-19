@@ -102,50 +102,64 @@ function moveZeroes(nums: number[]): void {
   // });
 
   // Fifth solution - Two pointer
-  let pointer1 = 0;
-  let pointer2 = 0;
-  while (pointer1 < nums.length && pointer2 < nums.length) {
-    function movePointerTwoToNextNonZero() {
-      if (nums[pointer2] && nums[pointer2] !== 0) {
-        return;
-      } else if (pointer2 === nums.length + 1) {
-        return;
-      }
-      else {
-        pointer2++;
-        movePointerTwoToNextNonZero();
-      }
+  // let pointer1 = 0;
+  // let pointer2 = 0;
+  // while (pointer1 < nums.length && pointer2 < nums.length) {
+  //   function movePointerTwoToNextNonZero() {
+  //     if (nums[pointer2] && nums[pointer2] !== 0) {
+  //       return;
+  //     } else if (pointer2 === nums.length + 1) {
+  //       return;
+  //     }
+  //     else {
+  //       pointer2++;
+  //       movePointerTwoToNextNonZero();
+  //     }
+  //   }
+
+  //   function movePointerTwoToNextZero() {
+  //     if (nums[pointer1] === 0) {
+  //       return;
+  //     } else if (pointer1 === nums.length + 1) {
+  //       return;
+  //     }
+  //     else {
+  //       pointer1++;
+  //       movePointerTwoToNextZero()
+  //     }
+  //   }
+
+  //   movePointerTwoToNextZero();
+  //   movePointerTwoToNextNonZero();
+
+  //   if (pointer1 > nums.length || pointer2 > nums.length) {
+  //     break;
+  //   }
+
+  //   let temp;
+  //   if (pointer2 > pointer1) {
+  //     temp = nums[pointer1];
+  //     nums[pointer1] = nums[pointer2];
+  //     nums[pointer2] = temp;
+  //   } else if (pointer1 > pointer2) {
+  //     pointer2++;
+  //   } else {
+  //     pointer1++;
+  //     pointer2++;
+  //   }
+  // }
+
+  // Sixth solution - two pointer
+  let temp, j = 0;
+  for (let i = 0; i < nums.length; i++) {
+    const num = nums[i];
+    if (num !== 0 && nums[j] === 0) {
+      temp = nums[i];
+      nums[j] = temp;
+      nums[i] = 0;
     }
-
-    function movePointerTwoToNextZero() {
-      if (nums[pointer1] === 0) {
-        return;
-      } else if (pointer1 === nums.length + 1) {
-        return;
-      }
-      else {
-        pointer1++;
-        movePointerTwoToNextZero()
-      }
-    }
-
-    movePointerTwoToNextZero();
-    movePointerTwoToNextNonZero();
-
-    if (pointer1 > nums.length || pointer2 > nums.length) {
-      break;
-    }
-
-    let temp;
-    if (pointer2 > pointer1) {
-      temp = nums[pointer1];
-      nums[pointer1] = nums[pointer2];
-      nums[pointer2] = temp;
-    } else if (pointer1 > pointer2) {
-      pointer2++;
-    } else {
-      pointer1++;
-      pointer2++;
+    if (nums[j] !== 0) {
+      j++;
     }
   }
 };
