@@ -27,18 +27,46 @@ Only one valid answer exists.
 
 function twoSum(nums: number[], target: number): number[] {
   // first solution - O(n^2)
+  // let result: number[] = [];
+  // for (let i = 0; i < nums.length; i++) {
+  //   for (let j = i + 1; j < nums.length; j++) {
+  //     if (nums[i] + nums[j] === target) {
+  //       result = [i, j];
+  //     }
+  //   }
+  // }
+  // return result;
+
+  // second solution
+  // let result: number[] = [];
+  // for (let i = 0; i < nums.length; i++) {
+  //   const num = nums[i];
+  //   const remain = target - num;
+  //   const remainIndex = nums.findIndex((n) => n === remain);
+  //   if (remainIndex !== -1 && i !== remainIndex) {
+  //     result = [i, remainIndex];
+  //     break;
+  //   }
+  // }
+  // return result;
+
+  //third solution - with object or map
+  let cached: {
+    [key: string]: number
+  } = {};
   let result: number[] = [];
+
   for (let i = 0; i < nums.length; i++) {
-    for (let j = i + 1; j < nums.length; j++) {
-      if (nums[i] + nums[j] === target) {
-        result = [i, j];
-      }
+    const num = nums[i];
+    const remain = target - num;
+
+    if (cached[remain] === undefined) {
+      cached[num] = i;
+    } else {
+      result = [i, cached[remain]].sort((a, b) => a - b)
     }
   }
   return result;
-
-  // second solution
-  
 };
 
 export default twoSum;
