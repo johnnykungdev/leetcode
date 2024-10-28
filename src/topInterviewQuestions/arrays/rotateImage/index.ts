@@ -45,39 +45,56 @@ function rotate(matrix: number[][]): void {
   //second solution
   // shift the square each time, there are (matrix.length / 2) squares
   // starting from the square outside, each layer starts from the top row
-  const n = matrix.length;
-  function findNextCorrespondSpot(i: number, j: number) {
-    return { row: j, column: n - i - 1 };
-  }
+  // const n = matrix.length;
+  // function findNextCorrespondSpot(i: number, j: number) {
+  //   return { row: j, column: n - i - 1 };
+  // }
 
-  for (let i = 0; i < (n/2); i++) {
-    // const topRow = matrix[i];
+  // for (let i = 0; i < (n/2); i++) {
+  //   // const topRow = matrix[i];
 
-    for (let startColumn = i; startColumn < n - i - 1; startColumn++) {
-      // for each of the element, we shift it all around
-      /* 
-      [i][j] => i is row, j is column
-        [0][0] => [0][3]     [i][j] => [j][n - i -1]
-                             [j][n - i -1] => [n - i - 1][n - j - 1]
-      */
-      let tempRow, tempColumn;
-      let originalRow = i, originalColumn = startColumn;
-      tempRow = originalRow;
-      tempColumn = originalColumn;
-      let temp = matrix[tempRow][tempColumn];
+  //   for (let startColumn = i; startColumn < n - i - 1; startColumn++) {
+  //     // for each of the element, we shift it all around
+  //     /* 
+  //     [i][j] => i is row, j is column
+  //       [0][0] => [0][3]     [i][j] => [j][n - i -1]
+  //                            [j][n - i -1] => [n - i - 1][n - j - 1]
+  //     */
+  //     let tempRow, tempColumn;
+  //     let originalRow = i, originalColumn = startColumn;
+  //     tempRow = originalRow;
+  //     tempColumn = originalColumn;
+  //     let temp = matrix[tempRow][tempColumn];
 
-      for (let times = 0; times < 4; times++) {
-        let targetSpot = findNextCorrespondSpot(tempRow, tempColumn);
-        let nextSpotValue = matrix[targetSpot.row][targetSpot.column];
-        matrix[targetSpot.row][targetSpot.column] = temp;
-        temp = nextSpotValue;
-        tempRow = targetSpot.row;
-        tempColumn = targetSpot.column;
+  //     for (let times = 0; times < 4; times++) {
+  //       let targetSpot = findNextCorrespondSpot(tempRow, tempColumn);
+  //       let nextSpotValue = matrix[targetSpot.row][targetSpot.column];
+  //       matrix[targetSpot.row][targetSpot.column] = temp;
+  //       temp = nextSpotValue;
+  //       tempRow = targetSpot.row;
+  //       tempColumn = targetSpot.column;
+  //     }
+  //   }
+  // }
+
+  // third solution
+  // transpose than reverse
+  function transpose(matrix: number[][]) {
+    const n = matrix.length;
+    for (let i = 0; i < n; i++) {
+      let startPoint = i;
+      for (let j = i; j < n; j++) {
+        let temp = matrix[i][j];
+        matrix[i][j] = matrix[j][i];
+        matrix[j][i] = temp;
       }
     }
   }
 
-
+  transpose(matrix);
+  matrix.forEach((row) => {
+    row.reverse();
+  });
 };
 
 export default rotate;
