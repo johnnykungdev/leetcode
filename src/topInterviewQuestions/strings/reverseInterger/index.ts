@@ -26,27 +26,51 @@ Constraints:
 
 function reverse(x: number): number {
   // first solution
-  if (x <= Math.pow(2, 31) - 1 && x >= - Math.pow(2, 31)) {
-    let isNegative = x < 0;
-    let finalNumber = 0;
-    let startNumber = Math.abs(x);
+  // if (x <= Math.pow(2, 31) - 1 && x >= - Math.pow(2, 31)) {
+  //   let isNegative = x < 0;
+  //   let finalNumber = 0;
+  //   let startNumber = Math.abs(x);
 
-    while(startNumber >= 1) {
-      const lastDigitInStartNumber = startNumber % 10;
-      const digits = Math.floor(Math.log10(startNumber));
-      console.log(lastDigitInStartNumber, digits);
-      finalNumber += lastDigitInStartNumber * Math.pow(10, digits);
-      startNumber = Math.floor(startNumber / 10);
+  //   while(startNumber >= 1) {
+  //     const lastDigitInStartNumber = startNumber % 10;
+  //     const digits = Math.floor(Math.log10(startNumber));
+  //     console.log(lastDigitInStartNumber, digits);
+  //     finalNumber += lastDigitInStartNumber * Math.pow(10, digits);
+  //     startNumber = Math.floor(startNumber / 10);
+  //   }
+  //   if (isNegative) {
+  //     finalNumber = - finalNumber
+  //   }
+  //   if (finalNumber > Math.pow(2, 31) - 1 || finalNumber < -Math.pow(2, 31)) {
+  //     return 0;
+  //   }
+  //   return finalNumber;
+  // }
+  // return 0;
+
+  // recursion
+  function reverseNumber(num: number, reversed = 0) {
+    if (num === 0) {
+      return reversed;
     }
-    if (isNegative) {
-      finalNumber = - finalNumber
-    }
-    if (finalNumber > Math.pow(2, 31) - 1 || finalNumber < -Math.pow(2, 31)) {
-      return 0;
-    }
-    return finalNumber;
+
+    return reverseNumber(
+      Math.floor(num / 10),
+      reversed * 10 + num % 10
+    );
   }
-  return 0;
+
+  let absNum = Math.abs(x);
+
+  let result = reverseNumber(absNum);
+    
+  if (x < 0) {
+    result = -result;
+  }
+  if (result > Math.pow(2, 31) - 1 || result < -Math.pow(2, 31)) {
+    return 0;
+  }
+  return result;
 };
 
 export default reverse;
