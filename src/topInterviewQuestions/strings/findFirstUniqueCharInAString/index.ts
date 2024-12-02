@@ -56,19 +56,49 @@ function firstUniqChar(s: string): number {
 
   // second solution
   // Use an fixed array to fill in
-  const fixedArray: number[] = new Array(26).fill(0);
-  for (let char of s) {
-    const charOrder = char.charCodeAt(0) - 'a'.charCodeAt(0);
-    fixedArray[charOrder] += 1;
-  }
+  // const fixedArray: number[] = new Array(26).fill(0);
+  // for (let char of s) {
+  //   const charOrder = char.charCodeAt(0) - 'a'.charCodeAt(0);
+  //   fixedArray[charOrder] += 1;
+  // }
 
+  // for (let i = 0; i < s.length; i++) {
+  //   const currentCharOrder = s.charCodeAt(i) - 'a'.charCodeAt(0);
+  //   if (fixedArray[currentCharOrder] === 1) {
+  //     return i;
+  //   }
+  // }
+  // return -1;
+
+  // third solution
+  const indexMap: {
+    [key: string]: number
+  } = {};
   for (let i = 0; i < s.length; i++) {
-    const currentCharOrder = s.charCodeAt(i) - 'a'.charCodeAt(0);
-    if (fixedArray[currentCharOrder] === 1) {
-      return i;
+    const char = s[i];
+
+    if (indexMap[char] !== undefined && indexMap[char] >= 0) {
+      indexMap[char] = -1;
+    } else {
+      indexMap[char] = i;
     }
   }
-  return -1;
+
+  let result: undefined | number;
+  Object.values(indexMap).forEach((indexOfChar: number) => {
+    if (indexOfChar !== -1) {
+      if (result === undefined && indexOfChar >= 0) {
+        result = indexOfChar;
+      } else if (result && indexOfChar < result) {
+        result = indexOfChar;
+      }
+    }
+  });
+
+  if (result === undefined) {
+    return -1;
+  }
+  return result;
 };
 
 export default firstUniqChar;
