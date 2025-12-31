@@ -48,7 +48,7 @@ function minEatingSpeed(piles: number[], h: number): number {
   while(maxPile > k) {
     const midValue = Math.round((maxPile + k) / 2);
     const hours = piles.reduce((prev, bananas) => {
-      return prev + Math.round(bananas/midValue);
+      return prev + Math.ceil(bananas/midValue);
     }, 0);
     console.log('hours', hours, midValue);
     if (hours > h) {
